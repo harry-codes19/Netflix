@@ -2,47 +2,428 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>
-      Netflix India - Watch TV Shows Online, Watch Movies Online in your
-    </title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="./src/style.css" />
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NETFLIX</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: #141414;
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
 
+      #home-page {
+        display: none;
+      }
+      #login-page {
+        display: flex;
+      }
+      body.show-home #home-page {
+        display: block;
+      }
+      body.show-home #login-page {
+        display: none;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background: #000;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+      }
+      .logo {
+        color: #e50914;
+        font-size: 30px;
+        margin-right: 30px;
+      }
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+      .nav-links li {
+        margin-right: 20px;
+      }
+      .nav-links a:hover {
+        color: #e50914;
+      }
+      .signin-btn {
+        background: #e50914;
+        padding: 8px 18px;
+        border-radius: 4px;
+      }
+
+      .hero {
+        height: 450px;
+        background:
+          linear-gradient(to right, #000, transparent),
+          linear-gradient(135deg, #3a0a0a, #0a0a2a);
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+      }
+      .hero-content {
+        max-width: 500px;
+      }
+      .hero-content h2 {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+      .hero-content p {
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .hero-buttons {
+        display: flex;
+      }
+      .btn {
+        padding: 10px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      .play {
+        background: #fff;
+        color: #000;
+      }
+      .info {
+        background: gray;
+        color: #fff;
+      }
+
+      .rows {
+        padding: 20px 40px;
+      }
+      .rows h3 {
+        margin: 20px 0 10px;
+      }
+      .row {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      .row img {
+        width: 230px;
+        height: 130px;
+        object-fit: cover;
+        flex-shrink: 0;
+        margin-right: 10px;
+        border-radius: 4px;
+        transition: transform 0.2s;
+      }
+      .row img:hover {
+        transform: scale(1.08);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px;
+        color: gray;
+      }
+
+      #login-page {
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+          url("https://occ-0-54-47.1.nflxso.net/dnm/api/v6/iMyKkw5SVrkCXbCfSBEb_Pjar5Y/AAAAQBTxE26zgLJoqZnmxUCfZtVJ2HbJUsVonZ_9Uo-pn68zarPK.png");
+        background-color: #141414;
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      #login-page header {
+        padding: 25px 50px;
+      }
+      #login-page .login-logo {
+        color: #e50914;
+        font-size: 32px;
+        font-weight: bold;
+        font-family: Verdana, sans-serif;
+      }
+      .login-container {
+        background: rgba(0, 0, 0, 0.75);
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto 80px;
+        padding: 60px 68px 40px;
+        border-radius: 4px;
+      }
+      .login-container h1 {
+        font-size: 32px;
+        margin-bottom: 28px;
+        font-weight: 700;
+      }
+      .input-group {
+        margin-bottom: 16px;
+      }
+      .input-group input {
+        width: 100%;
+        height: 50px;
+        padding: 16px;
+        border-radius: 4px;
+        border: 1px solid #333;
+        background: #333;
+        color: #fff;
+        font-size: 16px;
+      }
+      .input-group input:focus {
+        outline: none;
+        border-color: #0071eb;
+        background: #454545;
+      }
+      .submit-btn {
+        width: 100%;
+        height: 48px;
+        background: #e50914;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        margin: 24px 0 12px;
+      }
+      .submit-btn:hover {
+        background: #f40612;
+      }
+      .options {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #b3b3b3;
+        margin-bottom: 40px;
+      }
+      .options label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .options a {
+        color: #b3b3b3;
+      }
+      .options a:hover,
+      .signup-now a:hover,
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
+      .signup-now {
+        color: #737373;
+        font-size: 16px;
+      }
+      .login-footer {
+        background: rgba(0, 0, 0, 0.75);
+        padding: 30px 15%;
+        color: #737373;
+        font-size: 13px;
+        border-top: 1px solid #333;
+      }
+
+      @media (max-width: 600px) {
+        .navbar,
+        .rows,
+        .hero {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .login-container {
+          padding: 40px 24px;
+          margin-bottom: 40px;
+        }
+        #login-page header {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <div class="container">
-      <header>
-        <header>
-          <div><span class="title">NETFLIX</span></div>
-          <div>
-            <button class="bi bi-translate">English</button>
-            <a href="./login.html">
-              <button>Sign In</button>
-            </a>
-          </div>
-        </header>
+    <div id="home-page">
+      <header class="navbar" id="top">
+        <div class="nav-left">
+          <h1 class="logo">NETFLIX</h1>
+          <ul class="nav-links">
+            <li><a href="#top">Home</a></li>
+            <li><a href="#trending">Trending</a></li>
+            <li><a href="#popular">Popular</a></li>
+            <li><a href="#toprated">Top Rated</a></li>
+          </ul>
+        </div>
+        <div class="nav-right">
+          <a href="#login" class="signin-btn">Sign Out</a>
+        </div>
       </header>
 
-      <main>
-        <h1>
-          Endless<br />
-          entertainment starts<br />
-          at &#8377;149/mo
-        </h1>
-        <h4>New arrivals weekly. Cancel anytime.</h4>
-        <p>
-          Ready to watch? Enter your email to create or restart your membership.
-        </p>
-        <div class="email&start">
-          <input type="email" class="email-input" placeholder="Email address" />
-          <a href="http://127.0.0.1:5501/netflix2.0/index.html">
-            <button class="start-btn" type="button">Get Started</button>
-          </a>  
+      <section class="hero">
+        <div class="hero-content">
+          <h2>Stranger Things</h2>
+          <p>
+            In the 1980s Indiana, a group of young friends witness supernatural
+            forces and secret government exploits. As they search for answers,
+            the children unravel a series of extraordinary mysteries.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn play">▶ PLAY</button>
+            <button class="btn info">More Info</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="rows">
+        <h3 id="trending">Trending Now</h3>
+        <div class="row">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnqADPulcroac3JVdwMcQAbO1wrvFB1ooWtXWJjulrBw&s=10"
+            alt="stranger things"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5c4S4xjrUkxeaVWHLLGxpVIsglBx1YBtgtaNo-0onbA&s"
+            alt="off campus"
+          />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/d/d2/Farzi.jpeg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original"
+            alt="farzi"
+          />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/7/78/India%27s_Got_Latent_logo.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original"
+            alt="india's Got Latent"
+          />
+          <img
+            src="https://www.lilysinfinity.com/wp-content/uploads/2020/11/Mirzapur-Season-1-Web-Series-Review.jpg"
+            alt="mirzapur"
+          />
+          <img
+            src="https://www.motorsinside.com/en/wp-content/uploads/sites/2/2025/06/1500_edito_09DTWWmoJ6OtfzUDr1B52AlC5KgrtF_sXjzMGzDhL9rTRVs=.webp"
+            alt="F1"
+          />
+        </div>
+
+        <h3 id="popular">Popular on Netflix</h3>
+        <div class="row">
+          <img
+            src="https://m.media-amazon.com/images/S/pv-target-images/7c8837e80df5f4d6db421c2da152ecb5982d454d8624dda549f9f3d758b7ede7.jpg"
+            alt="Aashiqui 2"
+          />
+          <img
+            src="https://m.media-amazon.com/images/S/pv-target-images/5a2317ba4421b1fd9c8795da3336a1723713fcc2a51353bda22cdcffa53d83a4.jpg"
+            alt="Spider man brand new day"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfvicNfs4qXkTCutX1VJiKXhWR4bz1b1RionwDNFYz4fp0Q8iz8WGJ3cJl&s=10"
+            alt="The Odyssey"
+          />
+          <img
+            src="https://english.janamtv.com/wp-content/uploads/2024/01/screenshot-2024-01-23-153315.png"
+            alt="Animal"
+          />
+          <img
+            src="https://mena-img-cdn-lb.aws.playco.com/ev-ingest-nhstudioz-avod/AVODKABIRSINGHY2019MHI/AVODKABIRSINGHY2019MHI-landscape-poster-v2.jpg"
+            alt="Kabir Singh"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGmziZl2jhlLAZCwo98y2_S6AeymvVV09AvO7dmH2BS7rXKK00DLzBmsI&s=10"
+            alt="cocktail 2"
+          />
+        </div>
+
+        <h3 id="toprated">Top Rated</h3>
+        <div class="row">
+          <img
+            src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/7b350a2f-0b3e-4033-8125-34c4d67e3bbe/compose?aspectRatio=1.78&format=webp&width=1200"
+            alt="avengers end game"
+          />
+          <img
+            src="https://assets.murphysmultiverse.com/uploads/2022/07/MAIN-AVENGERS-SECRET-WARS-new.jpg"
+            alt="avengers secret wars"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ17TyFzSNcjXQMdviEJUDmssuqBQoPXt3kidx6xm0zp3B0cx3dl8iYOA0&s=10"
+            alt="inception"
+          />
+          <img
+            src="https://www.cinematerial.com/p/500x/gi85fw9o/the-conjuring-last-rites-logo.jpg?v=1754403266"
+            alt="the conjuring last rites"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGd4XbZrUy0Xv3QkbOZMRE5iPw47Ge9lgZhUstVuCLHADLCbNqH2L1fLE&s=10"
+            alt="my fault"
+          />
+          <img
+            src="https://www.cineyatra.com/wp-content/uploads/2021/09/Shiddat-CineYatra-111.jpg"
+            alt="shiddat"
+          />
         </div>
       </main>
+
+      <footer class="footer"><p>Questions? Call 9966558712</p></footer>
     </div>
+
+    <div id="login-page">
+      <header><a href="#login" class="login-logo">NETFLIX</a></header>
+
+      <div class="login-container">
+        <h1>Sign In</h1>
+        <form
+          action="#"
+          onsubmit="
+            event.preventDefault();
+            alert('Sign-in submitted!');
+            location.hash = '#home';
+          "
+        >
+          <div class="input-group">
+            <input type="text" placeholder="Email or phone number" required />
+          </div>
+          <div class="input-group">
+            <input type="password" placeholder="Password" required />
+          </div>
+          <button type="submit" class="submit-btn">Sign In</button>
+          <div class="options">
+            <label><input type="checkbox" checked /> Remember me</label>
+            <a href="#">Need help?</a>
+          </div>
+        </form>
+        <div class="signup-now">
+          New to Netflix? <a href="#home">Sign up now</a>.
+        </div>
+      </div>
+
+      <footer class="login-footer">
+        <p>Questions? Call 000-800-919-1694</p>
+      </footer>
+    </div>
+
+    <script>
+      var homeHashes = ["#home", "#top", "#trending", "#popular", "#toprated"];
+      function route() {
+        var isHome = homeHashes.indexOf(location.hash) !== -1;
+        document.body.classList.toggle("show-home", isHome);
+        document.title = isHome ? "NETFLIX" : "Netflix - Sign In";
+        if (location.hash === "#home" || !isHome) window.scrollTo(0, 0);
+      }
+      window.addEventListener("hashchange", route);
+      route();
+    </script>
   </body>
 </html>
