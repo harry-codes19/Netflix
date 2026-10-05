@@ -414,7 +414,14 @@
       </footer>
     </div>
 
-
+    <script>
+      var homeHashes = ["#home", "#top", "#trending", "#popular", "#toprated"];
+      function route() {
+        var isHome = homeHashes.indexOf(location.hash) !== -1;
+        document.body.classList.toggle("show-home", isHome);
+        document.title = isHome ? "NETFLIX" : "Netflix - Sign In";
+        if (location.hash === "#home" || !isHome) window.scrollTo(0, 0);
+      }
       window.addEventListener("hashchange", route);
       route();
     </script>
